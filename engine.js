@@ -6,3 +6,4 @@ check: function(){
     }
 }
 module.exports = Engine
+console.log ("Cyan level check".cyan)

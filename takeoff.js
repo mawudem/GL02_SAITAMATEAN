@@ -29,7 +29,6 @@ var satellite1 = unsafeRequire("./satellite1", stub);
 var satellite2 = unsafeRequire("./satellite2", stub);
 
 
-
 var rocket = {
 	engine: engine, 
 	command: command, 
@@ -70,5 +69,4 @@ var takeOff = function(){
 		console.log("0.. Fire \nTaaaaakkke Oooooofffff".green);
 	}
 }
-
 takeOff();

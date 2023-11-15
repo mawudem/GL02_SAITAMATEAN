@@ -6,3 +6,5 @@ var Satellite1 = {
     }
     }
     module.exports = Satellite1
+    console.log ("Cyan level check".cyan)
+    

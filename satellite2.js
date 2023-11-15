@@ -6,3 +6,4 @@ return true
 }
 }
 module.exports = Satellite2
+console.log ("Cyan level check".cyan)
