@@ -24,26 +24,26 @@ var stub = {
 
 var engine = unsafeRequire("./engine", stub);
 var command = unsafeRequire("./command", stub);
-//var radio = unsafeRequire("./radio", stub);
-//var satellite1 = unsafeRequire("./satellite1", stub);
-//var satellite2 = unsafeRequire("./satellite2", stub);
+var radio = unsafeRequire("./radio", stub);
+var satellite1 = unsafeRequire("./satellite1", stub);
+var satellite2 = unsafeRequire("./satellite2", stub);
 
 
 
 var rocket = {
 	engine: engine, 
 	command: command, 
-	//radio: radio, 
-//	satellite1: satellite1,
-//	satellite2: satellite2
+	radio: radio, 
+	satellite1: satellite1,
+	satellite2: satellite2
 };
 
 var checklist = {
 	engine: 0, 
 	command: 0, 
-	//radio: 0, 
-	//satellite1: 0,
-	//satellite2: 0
+	radio: 0, 
+	satellite1: 0,
+	satellite2: 0
 };
 
 var takeOff = function(){
