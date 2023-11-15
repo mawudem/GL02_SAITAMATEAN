@@ -5,3 +5,4 @@ return true
 }
 }
 module.exports = Engine
+console.log ("Cyan level check".cyan)

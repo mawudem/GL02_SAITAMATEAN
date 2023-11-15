@@ -71,5 +71,4 @@ var takeOff = function(){
 		console.log("0.. Fire \nTaaaaakkke Oooooofffff".green);
 	}
 }
-
 takeOff();

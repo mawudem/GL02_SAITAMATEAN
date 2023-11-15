@@ -5,3 +5,4 @@ return true
 }
 }
 module.exports = Command
+console.log ("Cyan level check".cyan)
