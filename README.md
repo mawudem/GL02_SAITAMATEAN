@@ -1,25 +1,5 @@
 # GL02_Saitama
-Titre1
-Sommaire2
-1Préface
-Interlocuteurs visés et intérêts  .
-Structure          
-Règles de révision         
-2Introduction
-Contexte et objectifs      
-Ressources existantes     
-3Glossaire
-4Spécification générale des exigences utilisateurs
-Exigences fonctionnelles   
-Exigences non fonctionnelles         
-5Spécifications détaillées
-Spécifications détaillées des exigences         
-Formats de données          
-Sémantique des données           
-6Conclusion
-7Annexe
 
-#
 
 ## Context du projet
 
@@ -28,38 +8,39 @@ Le cahier des charges demande de développer un logiciel en ligne de commande r�
 ##  organisation de notre projet.
 
 project/
-|-- src/
-|   |-- commands/
-|   |   |-- createExam.js
-|   |   |-- addQuestion.js
-|   |   |-- selectQuestion.js
-|   |   |-- searchAndModifyQuestions.js
-|   |   |-- viewExamProfile.js
-|   |   |-- simulateExam.js
-|   |   |-- checkExamQuality.js
-|   |   |-- createVCard.js
-|   |   |-- compareExams.js
-|-- parsers/
-|   |-- giftParser.js
-|   |-- vCardParser.js
-|-- services/
-|   |-- examService.js
-|   |-- questionService.js
-|   |-- vCardService.js
-|-- index.js
-|-- package.json
-|-- .gitignore
-|-- README.md
-|-- test/
-|   |-- createExam.test.js
-|   |-- addQuestion.test.js
-|   |-- selectQuestion.test.js
-|   |-- searchAndModifyQuestions.test.js
-|   |-- viewExamProfile.test.js
-|   |-- simulateExam.test.js
-|   |-- checkExamQuality.test.js
-|   |-- createVCard.test.js
-|   |-- compareExams.test.js
+
+- -src/
+- --commands/
+- --- createExam.js
+- --- addQuestion.js
+- --- selectQuestion.js
+- --- searchAndModifyQuestions.js
+- --- viewExamProfile.js
+- --- simulateExam.js
+- --- checkExamQuality.js
+- --- createVCard.js
+- --- compareExams.js
+- -parsers/
+- -- giftParser.js
+- -- vCardParser.js
+- -services/
+- -- examService.js
+- -- questionService.js
+- -- vCardService.js
+- -index.js
+- -package.json
+- -.gitignore
+- -README.md
+- -test/
+- -- createExam.test.js
+- -- addQuestion.test.js
+- -- selectQuestion.test.js
+- -- searchAndModifyQuestions.test.js
+- -- viewExamProfile.test.js
+- -- simulateExam.test.js
+- -- checkExamQuality.test.js
+- -- createVCard.test.js
+- -- compareExams.test.js
 
 **Explications :**
 
