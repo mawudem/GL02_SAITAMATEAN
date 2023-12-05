@@ -18,7 +18,7 @@ VCardParser.prototype.tokenize = function (data) {
     return data;
 }
 // Read and return a symbol from input
-VpfParser.prototype.next = function(input){
+VCardParser.prototype.next = function(input){
 	var curS = input.shift();
 	if(this.showParsedSymbols){
 		console.log(curS);

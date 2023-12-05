@@ -329,10 +329,10 @@ NB chaque membre code le tests unitaires pour les commandes ou services sur lesq
 
 
     examService.js
-    
+    questionService.js
+    vCardService.js
 ### ANNA
-   questionService.js
-   vCardService.js
+   
 ### SHI
     createExam.js
     addQuestion.js
