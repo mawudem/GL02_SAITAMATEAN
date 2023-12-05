@@ -12,6 +12,7 @@ var VpfParser = function(sTokenize, sParsedSymb){
 	this.errorCount = 0;
 }
 
+
 // Parser procedure
 
 // tokenize : tranform the data input into a list

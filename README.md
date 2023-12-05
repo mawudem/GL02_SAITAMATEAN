@@ -220,12 +220,119 @@ il y a deux branches principales sur le depot.
 NB chaque membre code le tests unitaires pour les commandes ou services sur lesquels il a travaillé.
 
 ### KOLEDZI Kokouvi mawudem
-    giftParser.js
-    vCardParser.js
+    giftParser.js : 
+
+        Afin de créer un fichier GIFT utilisable par le logiciel, nous proposons d’utiliser la
+        grammaire ABNF suivante :
+
+
+
+        Questionnaire = 1*(Question/Commentaire)
+        Question = Titre TexteQuestion
+        Titre = ': :' WSP TEXT ': :' [Format]
+        Format = '[' 1*CHAR ']'
+        TexteQuestion = 1*(WSP/VCHAR/TypeQuestion)
+        TypeQuestion = '{'
+        1(ChoixMultiples/VraiFaux/Correspondance/MotManquant/Numérique/Ouverte) '}'
+        ChoixMultiples = 1*(~ TEXT [Rétroaction]/= TEXT [Rétroaction])
+        VraiFaux = 1('TRUE'/'T'/'FALSE'/'F') [Rétroaction]
+        Correspondance = 1*('=' TEXT '->' TEXT)
+        Ouverte = 1*('='TEXT) [Rétroaction]
+        Numérique = '#=' 1*DIGIT[':' 1*DIGIT] [Rétroaction]
+        MotManquant = 1*(~TEXT/~= TEXT) [Rétroaction]
+        Rétroaction = '#' TEXT
+        Commentaire = '//' 1*VCHAR
+        TEXT = 1*(WSP/VCHAR)
+
+
+        
+        Nous avons fait le choix d’écrire une règle pour chaque type de question afin que
+        l’écriture d’un fichier GIFT soit accessible à toutes personnes. Voici quelques explications
+        pour écrire une question :
+        •Choix multiples : les mauvaises propositions commencent par le caractère ~ et les
+        bonnes réponses par =
+        •Vrai ou faux : il suffit d’écrire la question puis d’ajouter {TRUE} pour une question
+        vraie ou {FALSE} pour une question fausse
+        •Correspondance : doit commencer par ‘= ‘puis une question puis ‘->’ avec la réponse
+        associée
+        •Mot maquant : il suffit d’ajouter dans le texte les accolades pour crée l’endroit du
+        trou dans le texte puis ajouter = devant la bonne réponse et ~ devant une proposition
+        fausse
+        •Numérique : il faut commencer par # puis =devant la bonne réponse, il est ensuite
+        possible d’ajouter une marge facultative en ajoutant ‘:’ puis un nombre
+        •Ouverte : il faut ajouter = devant la ou les bonnes réponses (comme par exemple
+        {=2 =deux})
+        
+        En plaçant un # dans les questions de tous les types sauf les questions de
+        correspondance, il est possible d’ajouter une rétroaction, qui est un commentaire de la
+        réponse.
+
+        Cette grammaire définit la syntaxe du format GIFT (General Import Format Template), qui est utilisé pour représenter des questionnaires ou des quiz dans un format textuel. Voici une explication de chaque règle de la grammaire :
+
+        1. **Questionnaire :**
+        - `1*(Question/Commentaire)`: Un questionnaire est constitué d'une séquence d'une ou plusieurs questions (`Question`) ou commentaires (`Commentaire`).
+
+        2. **Question :**
+        - `Titre TexteQuestion`: Une question est composée d'un titre (`Titre`) suivi du texte de la question (`TexteQuestion`).
+
+        3. **Titre :**
+        - `': :' WSP TEXT ': :' [Format]`: Le titre d'une question est encadré par `: :`, suivi d'un espace blanc (`WSP`), suivi du texte du titre (`TEXT`), suivi de `: :`. Il peut également inclure un format optionnel (`Format`).
+
+        4. **Format :**
+        - `['[' 1*CHAR ']']`: Le format est optionnel et est encadré par des crochets. Il peut contenir n'importe quel caractère (`CHAR`), représenté par `1*CHAR`.
+
+        5. **TexteQuestion :**
+        - `1*(WSP/VCHAR/TypeQuestion)`: Le texte d'une question peut contenir un ou plusieurs espaces blancs (`WSP`), caractères visibles (`VCHAR`), ou des types spécifiques de questions (`TypeQuestion`).
+
+        6. **TypeQuestion :**
+        - `'{1(ChoixMultiples/VraiFaux/Correspondance/MotManquant/Numérique/Ouverte)}'`: Le type de question est une séquence d'une des catégories spécifiées entre accolades. Les catégories incluent Choix Multiples (`ChoixMultiples`), Vrai/Faux (`VraiFaux`), Correspondance (`Correspondance`), Mot Manquant (`MotManquant`), Numérique (`Numérique`), ou Ouverte (`Ouverte`).
+
+        7. **ChoixMultiples :**
+        - `1*(~ TEXT [Rétroaction]/= TEXT [Rétroaction])`: Les choix multiples sont représentés par une séquence de texte (`TEXT`). Les mauvaises réponses commencent par `~`, et les bonnes réponses par `=`. Une rétroaction optionnelle (`Rétroaction`) peut suivre chaque réponse.
+
+        8. **VraiFaux :**
+        - `1('TRUE'/'T'/'FALSE'/'F') [Rétroaction]`: Les questions Vrai/Faux sont représentées par les valeurs `TRUE`, `T`, `FALSE`, ou `F`. Une rétroaction optionnelle (`Rétroaction`) peut suivre la réponse.
+
+        9. **Correspondance :**
+        - `1*('=' TEXT '->' TEXT)`: Les questions de correspondance commencent par `=` suivie du texte, puis `->` et le texte associé.
+
+        10. **Ouverte :**
+            - `1*('='TEXT) [Rétroaction]`: Les questions ouvertes commencent par `=` suivi du texte. Une rétroaction optionnelle (`Rétroaction`) peut suivre la réponse.
+
+        11. **Numérique :**
+            - `'#=' 1*DIGIT[':' 1*DIGIT] [Rétroaction]`: Les questions numériques commencent par `#=` suivi d'au moins un chiffre (`DIGIT`). Une marge facultative peut être spécifiée avec `:` et un ou plusieurs chiffres. Une rétroaction optionnelle (`Rétroaction`) peut suivre la réponse.
+
+        12. **MotManquant :**
+            - `1*(~TEXT/~= TEXT) [Rétroaction]`: Les questions à trous sont représentées par une séquence de texte (`TEXT`). Les réponses correctes commencent par `=~`. Une rétroaction optionnelle (`Rétroaction`) peut suivre chaque réponse.
+
+        13. **Rétroaction :**
+            - `'#' TEXT`: La rétroaction est représentée par `#` suivi du texte.
+
+        14. **Commentaire :**
+            - `'//' 1*VCHAR'`: Un commentaire commence par `//` et peut contenir un ou plusieurs caractères visibles (`VCHAR`).
+
+        15. **TEXT :**
+            - `1*(WSP/VCHAR)`: Le texte est une séquence d'espaces blancs (`WSP`) ou de caractères visibles (`VCHAR`).
+
+        Cela définit une structure pour représenter différentes types de questions et de commentaires dans le format GIFT, avec des règles spécifiques pour chaque type de question.
+
+    vCardParser.js: 
+
+        FichierVCard = 1*VCard
+        VCard = 'BEGIN:VCARD' CRLF 'VERSION:4.0' CRLF 1*Ligne 'END:VCARD' CRLF
+        Ligne = 1(Name/Fn/Tel/Email) CRLF
+        Name = 'N:' TEXT CRLF
+        Fn = 'FN:' TEXT CRLF
+        Tel = 'TEL;tel:' 10DIGIT CRLF
+        Email = 'EMAIL:' 1*ALPHA'@'1*CHAR'.'1*CHAR CRLF
+        TEXT = 1*(WSP/VCHAR)
+
+
     examService.js
-    questionService.js
-    vCardService.js
+    
 ### ANNA
+   questionService.js
+   vCardService.js
 ### SHI
     createExam.js
     addQuestion.js
