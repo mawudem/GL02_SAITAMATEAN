@@ -2,20 +2,17 @@ const fs = require('fs');
 const readline = require('readline');
 const cli = require("@caporal/core").default;
 
-// 创建命令行界面实例
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-// 定义一个函数来询问问题
 function askQuestion(query) {
     return new Promise(resolve => {
         rl.question(query, resolve);
     });
 }
 
-// 创建考试对象的函数
 async function createExam(name, description) {
     const duration = await askQuestion('Enter the duration of the exam (in minutes): ');
     const type = await askQuestion('Enter the type of the exam (e.g., Final, Midterm, Quiz): ');
@@ -36,7 +33,6 @@ async function createExam(name, description) {
     };
 }
 
-// CLI 命令定义
 cli
     .version('1.0.0')
     .command('create', 'Create a new exam')
