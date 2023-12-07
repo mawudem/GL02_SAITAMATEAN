@@ -1,9 +1,7 @@
-const fs = require('fs');
+/*const fs = require('fs');
 const colors = require('colors');
-const VpfParser = require('./VpfParser.js');
-
-const vg = require('vega');
-const vegalite = require('vega-lite');
+//const vg = require('vega');
+//const vegalite = require('vega-lite');
 
 const cli = require("@caporal/core").default;
 
@@ -155,6 +153,7 @@ cli
 			const myChart = vegalite.compile(avgChart).spec;
 			
 			/* SVG version */
+			/*
 			var runtime = vg.parse(myChart);
 			var view = new vg.View(runtime).renderer('svg').run();
 			var mySvg = view.toSVG();
@@ -178,7 +177,7 @@ cli
 			})			
 			*/
 			
-			
+	/*		
 		}else{
 			logger.info("The .vpf file contains error".red);
 		}
@@ -222,4 +221,4 @@ cli
 	
 	
 cli.run(process.argv.slice(2));
-	
+	*/

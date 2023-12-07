@@ -2,53 +2,34 @@ const fs = require('fs');
 const colors = require('colors');
 const giftParser = require('../../parsers/giftParser.js');
 const vCardParser = require('../../parsers/vCardParser.js');
-
 const vg = require('vega');
 const vegalite = require('vega-lite');
 
 const cli = require("@caporal/core").default;
 
-cli.version('vpf-parser-cli')
+cli
+	.version('vpf-parser-cli')
 	.version('0.07')
-	// check Vpf
+	
+		//search
+		.command('search', 'Cherche des questions pour créer un examen')
+		.argument('<sujet>', 'sujet de questions')
+		.option('-a, --all', 'tous les types de question', { validator: cli.BOOLEAN, default: true })
+		.option('-e, --enonce', 'uniquement les questions de type énoncé', { validator: cli.BOOLEAN, default: false })
+		.option('-t, --trueFalse', 'uniquement les questions vrai ou faux', { validator: cli.BOOLEAN, default: false })
+		.option('-c, --multipleChoice', 'uniquement les questions à choix multiples', { validator: cli.BOOLEAN, default: false })
+		.option('-s, --shortAnswer', 'uniquement les questions ouvertes', { validator: cli.BOOLEAN, default: false })
+		.option('-m, --match', 'uniquement les questions matching', { validator: cli.BOOLEAN, default: false })
+		.action(({ args, options }) => {
+			var utilisateur = new Utilisateur();
+			utilisateur = utilisateur.findConnected();
+			if (utilisateur.userName !== undefined && utilisateur.type === 'P') {
+				var examen = new Examen();
+				questionsCorrespondantes = examen.searchQuestion(args.sujet, options.a, options.e, options.t, options.c, options.s, options.m);
+				console.log(questionsCorrespondantes);
+			}
+			else console.log('Veuillez d\'abord vous connecter à un compte possédant les droits nécessaires.'.red);
+		})
 
-
-// readme
-
-// Ajoutez la commande "readme"
-cli.command('readme', 'Display the README.txt file')
-.action(({ logger }) => {
-    // Lire le contenu du fichier README.txt
-    fs.readFile('../../README.md', 'utf-8', (err, data) => {
-        if (err) {
-            logger.error(err);
-            return;
-        }
-        // Afficher le contenu dans la console
-        logger.info(data);
-    });
-});
-
-
-	// Ajoutez la commande "search"
-	/*cli.command('search', 'Search for POIs containing a certain string')
-		.argument('<file>', 'The Vpf file to search')
-		.argument('<needle>', 'The text to look for in POI\'s names')
-		.action(({ args, logger }) => {
-			fs.readFile(args.file, 'utf-8', (err, data) => {
-				if (err) {
-					logger.error(err);
-					return;
-				}
-				const needle = args.needle.toLowerCase();
-				// Parsez le fichier Vpf et filtrez les POI
-				const analyzer = new VpfParser();
-				analyzer.parse(data);
-				const filteredPOI = analyzer.parsedPOI.filter(poi => poi.name.toLowerCase().includes(needle));
-				logger.info(filteredPOI);
-			});
-		});*/
-
-
-// Exécutez la CLI avec les arguments de la ligne de commande
+	
 cli.run(process.argv.slice(2));
